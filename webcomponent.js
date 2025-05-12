@@ -232,5 +232,7 @@
         }
     }
 
-    customElements.define('nkappler-datepicker-aps', DatePickerAps);
+    if (!customElements.get('nkappler-datepicker-aps')) {
+        customElements.define('nkappler-datepicker-aps', DatePickerAps);
+    }
 })();
