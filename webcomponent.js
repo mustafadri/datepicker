@@ -123,33 +123,39 @@
             super();
             this._checkForUpdates();
             this.appendChild(tmpl.content.cloneNode(true));
-
-            if (sap.ui.getCore().byId("dateMin")) {
-                sap.ui.getCore().byId("dateMin").destroy();
+        
+            if (typeof sap !== "undefined" && sap.ui && sap.ui.getCore) {
+                if (sap.ui.getCore().byId("dateMin")) {
+                    sap.ui.getCore().byId("dateMin").destroy();
+                }
+                this.minDP = new sap.m.DatePicker({
+                    id: "dateMin",
+                    change: function (event) {
+                        this.minDateVal = event.oSource.getDateValue();
+                        this._submit(event);
+                    }.bind(this)
+                });
+                this.minDP.placeAt(this.querySelector("#dateMin"));
+        
+                if (sap.ui.getCore().byId("dateMax")) {
+                    sap.ui.getCore().byId("dateMax").destroy();
+                }
+                this.maxDP = new sap.m.DatePicker({
+                    id: "dateMax",
+                    change: function (event) {
+                        this.maxDateVal = event.oSource.getDateValue();
+                        this._submit(event);
+                    }.bind(this)
+                });
+                this.maxDP.placeAt(this.querySelector("#dateMax"));
+            } else {
+                console.warn("SAP UI5 no está disponible aún.");
             }
-            this.minDP = new sap.m.DatePicker({
-                id: "dateMin",
-                change: function (event) {
-                    this.minDateVal = event.oSource.getDateValue();
-                    this._submit(event);
-                }.bind(this)
-            });
-            this.minDP.placeAt(this.querySelector("#dateMin"));
-
-            if (sap.ui.getCore().byId("dateMax")) {
-                sap.ui.getCore().byId("dateMax").destroy();
-            }
-            this.maxDP = new sap.m.DatePicker({
-                id: "dateMax",
-                change: function (event) {
-                    this.maxDateVal = event.oSource.getDateValue();
-                    this._submit(event);
-                }.bind(this)
-            });
-            this.maxDP.placeAt(this.querySelector("#dateMax"));
+        
             ["select", "theme", "range"].forEach(id =>
                 this.querySelector("#" + id).addEventListener("change", this._submit.bind(this)));
         }
+
 
         async _checkForUpdates() {
             try {
