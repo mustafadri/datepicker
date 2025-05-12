@@ -105,8 +105,7 @@
         <p>Date Format</p>
         <div class="select">
             <select id="select">
-                <option name="aps_format" value="">Automatic</option>
-                <option name="aps_format" value="dd-MM-yyyy">DD-MM-YYYY</option>
+                <option name="aps_format" value="">DD-MM-YYYY</option>
             </select>
         </div>
         <p>Theme</p>
