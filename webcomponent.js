@@ -127,7 +127,5 @@
             this.DP.setMinDate(this._minDate);
         }
     }
-    if (!customElements.define('nkappler-date-picker', DatePicker)){
-        customElements.define('nkappler-date-picker', DatePicker);
-    }
+    customElements.define('nkappler-date-picker-test', DatePicker);
 })();
